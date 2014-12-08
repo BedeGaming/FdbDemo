@@ -1,10 +1,12 @@
 # Windows image file caches
 bin/
 obj/
+packages/
 
 fdb.local.cluster
 Thumbs.db
 ehthumbs.db
+
 
 # Folder config file
 Desktop.ini

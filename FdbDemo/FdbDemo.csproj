@@ -34,8 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FoundationDB.Client">
-      <HintPath>..\packages\FoundationDB.Client.0.200.6-pre\lib\net45\FoundationDB.Client.dll</HintPath>
+    <Reference Include="FoundationDB.Client, Version=0.9.8.0, Culture=neutral, PublicKeyToken=0996d7acfe9079d4, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FoundationDB.Client.0.9.8-pre\lib\net45\FoundationDB.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
