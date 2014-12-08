@@ -1,4 +1,8 @@
 # Windows image file caches
+bin/
+obj/
+
+fdb.local.cluster
 Thumbs.db
 ehthumbs.db
 

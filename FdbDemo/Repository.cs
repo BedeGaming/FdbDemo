@@ -12,12 +12,15 @@ namespace FdbDemo
     {
         private const string FeatureSubspace = "f";
         private readonly FdbDatabaseProvider _dbProvider;
-        private readonly ConcurrentDictionary<string, FdbDirectorySubspace> _directoriesCache = 
+        private readonly ConcurrentDictionary<string, FdbDirectorySubspace> _directoriesCache =
             new ConcurrentDictionary<string, FdbDirectorySubspace>();
+
+        private readonly Stopwatch stopwatch;
 
         public Repository(FdbDatabaseProvider dbProvider)
         {
             _dbProvider = dbProvider;
+            stopwatch = new Stopwatch();
         }
 
         public void CreateFeature(string name, byte[] feature)
@@ -25,11 +28,10 @@ namespace FdbDemo
             var featureSpace = GetOrCreateDir(FeatureSubspace);
             var fkey = featureSpace.Pack(name);
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+            stopwatch.Start();
             _dbProvider.Db.WriteAsync(trans => trans.Set(fkey, Slice.FromStream(new MemoryStream(feature))), new CancellationToken()).Wait();
-            sw.Stop();
-            Console.WriteLine(string.Format("Created feature in {0} ms", sw.ElapsedMilliseconds));
+            stopwatch.Stop();
+            Console.WriteLine(string.Format("Created feature in {0} ms", stopwatch.ElapsedMilliseconds));
         }
 
         public Slice GetFeature(string name)
