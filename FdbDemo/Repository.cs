@@ -49,7 +49,14 @@ namespace FdbDemo
 
         private FdbDirectorySubspace GetOrCreateDir(string name)
         {
-            return _directoriesCache.GetOrAdd(name, _dbProvider.Db.Directory.CreateOrOpenAsync(name, new CancellationToken()).Result);
+            FdbDirectorySubspace directory;
+
+            if (_directoriesCache.TryGetValue(name, out directory))
+                return directory;
+
+            directory = _dbProvider.Db.Directory.CreateOrOpenAsync(name, new CancellationToken()).Result;
+            _directoriesCache.TryAdd(name, directory);
+            return directory;
         }
     }
 }
