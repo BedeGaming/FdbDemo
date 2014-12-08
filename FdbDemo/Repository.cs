@@ -28,7 +28,7 @@ namespace FdbDemo
             var featureSpace = GetOrCreateDir(FeatureSubspace);
             var fkey = featureSpace.Pack(name);
 
-            stopwatch.Start();
+            stopwatch.Restart();
             _dbProvider.Db.WriteAsync(trans => trans.Set(fkey, Slice.FromStream(new MemoryStream(feature))), new CancellationToken()).Wait();
             stopwatch.Stop();
             Console.WriteLine(string.Format("Created feature in {0} ms", stopwatch.ElapsedMilliseconds));
